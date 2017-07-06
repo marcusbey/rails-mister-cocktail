@@ -10,15 +10,19 @@
 require 'json'
 require 'open-uri'
 
-Ingredient.create(name: "lemon")
-Ingredient.create(name: "ice")
-Ingredient.create(name: "mint leaves")
+Ingredient.destroy_all
+
+# Ingredient.create(name: "lemon")
+# Ingredient.create(name: "ice")
+# Ingredient.create(name: "mint leaves")
+
 
 
 url = 'http://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
 all_cocktails = open(url).read
 array_cocktail = JSON.parse(all_cocktails)
 
-array_cocktail.each do |element|
-  Cocktail.create!(element)
+array_cocktail['drinks'].each do |element|
+  element
+  Cocktail.create!(name: element['strIngredient1'])
 end

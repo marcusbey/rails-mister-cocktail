@@ -2,9 +2,9 @@ class Dose < ApplicationRecord
   belongs_to :cocktail
   belongs_to :ingredient
 
-  validates :description, presence: { message: "must be given please" }
+  validates :description, presence: true
 
-  validates :cocktail, uniqueness: {:scope => :ingredient
-    message: "This already exist"}
-  validates :ingredient, uniqueness: {:scope => :cocktail}
+  validates :cocktail, presence: true
+  validates :ingredient, presence: true
+  validates :ingredient, uniqueness: {scope: :cocktail}
 end

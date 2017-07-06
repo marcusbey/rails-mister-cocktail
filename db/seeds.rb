@@ -7,6 +7,18 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
+require 'json'
+require 'open-uri'
+
 Ingredient.create(name: "lemon")
 Ingredient.create(name: "ice")
 Ingredient.create(name: "mint leaves")
+
+
+url = 'http://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
+all_cocktails = open(url).read
+array_cocktail = JSON.parse(all_cocktails)
+
+array_cocktail.each do |element|
+  Cocktail.create!(element)
+end

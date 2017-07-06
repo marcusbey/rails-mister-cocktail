@@ -13,23 +13,30 @@ class CocktailsController < ApplicationController
   end
 
   def create
-    @cocktail = Restaurant.new(user_params)
-    @cocktail.save
-    redirect_to cocktail_path(@cocktail)
+    @cocktail = Cocktail.new(cocktails_params)
+    if @cocktail.save
+      redirect_to cocktail_path(@cocktail)
+    else
+      render :new
+    end
   end
 
   def update
-    @cocktail = Cocktail.find(params[:id])
-    @cocktail.update(user_params)
+    if @cocktail.update(cocktail_params)
+      redirect_to cocktail_path(@cocktail)
+    else
+      render :edit
+    end
   end
 
   def destroy
+    @cocktail = Cocktail.find(params[:id])
+    @cocktail.destroy
   end
 
   def edit
     @cocktail = Cocktail.find(params[:id])
   end
-end
 
   private
 
